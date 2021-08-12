@@ -1,10 +1,10 @@
-package com.fit.juanchaparro.fitstudentapp;
+package com.fitstudentapp.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FitstudentappApplicationTests {
+class ServerApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'com.fit.juanchaparro'
+group = 'com.fitstudentapp'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 

@@ -1,13 +1,13 @@
-package com.fit.juanchaparro.fitstudentapp;
+package com.fitstudentapp.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FitstudentappApplication {
+public class ServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FitstudentappApplication.class, args);
+		SpringApplication.run(ServerApplication.class, args);
 	}
 
 }
