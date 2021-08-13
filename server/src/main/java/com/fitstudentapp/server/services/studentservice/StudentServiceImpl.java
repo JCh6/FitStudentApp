@@ -1,11 +1,14 @@
 package com.fitstudentapp.server.services.studentservice;
 
+import com.fitstudentapp.server.exceptions.NotFoundException;
 import com.fitstudentapp.server.repository.StudentRepository;
+import com.fitstudentapp.server.shared.Utils;
+import com.fitstudentapp.server.ui.model.request.StudentRequestModel;
+import com.fitstudentapp.server.ui.model.response.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.fitstudentapp.server.ui.model.response.Student;
 
-import java.util.List;
+import static com.fitstudentapp.server.exceptions.Message.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -13,30 +16,22 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     StudentRepository studentRepository;
 
-    @Override
-    public List<Student> getStudents() {
-        return studentRepository.findAll();
+    Utils utils;
+
+    @Autowired
+    public StudentServiceImpl(Utils utils) {
+        this.utils = utils;
     }
 
     @Override
-    public void addNewStudent(Student student) {
-        /*Optional<Student> studentOptional = studentRepository
-                .findStudentByEmail(student.getEmail());
-
-
-        if (studentOptional.isPresent()) {
-            throw new IllegalStateException("Email Taken");
-        }
-
-        studentRepository.save(student);*/
+    public Student getStudent(String id) {
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND));
     }
 
     @Override
-    public void deleteStudent(Long id) {
-        /*if (!studentRepository.existsById(id))
-            throw new IllegalStateException("Student with id: " + id + " does not exists");
-
-        studentRepository.deleteById(id);*/
+    public Student addNewStudent(StudentRequestModel student) {
+        String studentId = utils.generateStudentId();
+        return studentRepository.save(new Student(studentId, student));
     }
-
 }

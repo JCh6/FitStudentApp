@@ -1,5 +1,7 @@
 package com.fitstudentapp.server.ui.model.response;
 
+import com.fitstudentapp.server.ui.model.request.StudentRequestModel;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
@@ -21,17 +23,11 @@ public class Student {
 
     public Student() {}
 
-    public Student(String name, String email, LocalDate dob) {
-        this.name = name;
-        this.email = email;
-        this.dob = dob;
-    }
-
-    public Student(String id, String name, String email, LocalDate dob) {
+    public Student(String id, StudentRequestModel student) {
         this.id = id;
-        this.name = name;
-        this.email = email;
-        this.dob = dob;
+        this.name = student.getName();
+        this.email = student.getEmail();
+        this.dob = student.getDob();
     }
 
     public String getId() {
