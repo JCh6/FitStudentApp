@@ -18,14 +18,13 @@ import static com.fitstudentapp.server.exceptions.Message.NOT_FOUND;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    @Autowired
-    StudentRepository studentRepository;
-
+    private StudentRepository studentRepository;
     Utils utils;
 
     @Autowired
-    public StudentServiceImpl(Utils utils) {
+    public StudentServiceImpl(Utils utils, StudentRepository studentRepository) {
         this.utils = utils;
+        this.studentRepository = studentRepository;
     }
 
     @Override
