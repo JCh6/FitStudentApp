@@ -1,10 +1,12 @@
 package com.fitstudentapp.server.ui.model.request;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class StudentRequestModel {
+    @NotBlank(message = "Name cannot be blank")
     @NotNull(message = "Name cannot be null")
     private String name;
 

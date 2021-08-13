@@ -30,6 +30,13 @@ public class Student {
         this.dob = student.getDob();
     }
 
+    public Student(String id, String name, String email, LocalDate dob) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.dob = dob;
+    }
+
     public String getId() {
         return id;
     }

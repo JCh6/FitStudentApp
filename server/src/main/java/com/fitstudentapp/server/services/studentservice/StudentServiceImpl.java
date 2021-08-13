@@ -31,7 +31,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> getStudents(int page, int limit) {
         return studentRepository
-                .findAllWithPagination(PageRequest.of(page, limit)).getContent();
+                .findAll(PageRequest.of(page, limit)).getContent();
     }
 
     @Override
