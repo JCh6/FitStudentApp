@@ -1,16 +1,10 @@
 package com.fitstudentapp.server.repository;
 
-import com.fitstudentapp.server.models.student.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
+import com.fitstudentapp.server.ui.model.response.Student;
 
 @Repository
 public interface StudentRepository
-        extends JpaRepository<Student, Long> {
-
-    @Query("SELECT s FROM Student s WHERE s.email = ?1")
-    Optional<Student> findStudentByEmail(String email);
+        extends JpaRepository<Student, String> {
 }
