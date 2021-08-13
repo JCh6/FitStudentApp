@@ -6,9 +6,12 @@ import com.fitstudentapp.server.shared.Utils;
 import com.fitstudentapp.server.ui.model.request.StudentRequestModel;
 import com.fitstudentapp.server.ui.model.response.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import static com.fitstudentapp.server.exceptions.Message.*;
+import java.util.List;
+
+import static com.fitstudentapp.server.exceptions.Message.NOT_FOUND;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -24,6 +27,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getStudents(int page, int limit) {
+        return studentRepository
+                .findAllWithPagination(PageRequest.of(page, limit)).getContent();
+    }
+
+    @Override
     public Student getStudent(String id) {
         return studentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND));
@@ -33,5 +42,14 @@ public class StudentServiceImpl implements StudentService {
     public Student addNewStudent(StudentRequestModel student) {
         String studentId = utils.generateStudentId();
         return studentRepository.save(new Student(studentId, student));
+    }
+
+    @Override
+    public Student deleteStudent(String id) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND));
+
+        studentRepository.deleteById(student.getId());
+        return student;
     }
 }

@@ -32,7 +32,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = { NoContentException.class })
-    public ResponseEntity<Object> handleNoContextException(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> handleNoContextException(NoContentException ex, WebRequest request) {
         return new ResponseEntity<>(
                 new ErrorMessage(),
                 new HttpHeaders(),
@@ -41,7 +41,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = { NotFoundException.class })
-    public ResponseEntity<Object> handleNotFoundException(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> handleNotFoundException(NotFoundException ex, WebRequest request) {
         String message = utils.extractMessage(ex);
 
         return new ResponseEntity<>(
