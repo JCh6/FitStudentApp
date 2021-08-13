@@ -4,10 +4,12 @@ import com.fitstudentapp.server.exceptions.NotFoundException;
 import com.fitstudentapp.server.repository.StudentRepository;
 import com.fitstudentapp.server.shared.Utils;
 import com.fitstudentapp.server.ui.model.request.StudentRequestModel;
+import com.fitstudentapp.server.ui.model.request.StudentUpdateRequestModel;
 import com.fitstudentapp.server.ui.model.response.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,6 +44,20 @@ public class StudentServiceImpl implements StudentService {
     public Student addNewStudent(StudentRequestModel student) {
         String studentId = utils.generateStudentId();
         return studentRepository.save(new Student(studentId, student));
+    }
+
+    @Override
+    @Transactional
+    public Student updateStudent(String id, StudentUpdateRequestModel studentDetails) {
+        String newName = studentDetails.getName();
+        String newEmail = studentDetails.getEmail();
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND));
+
+        if (newName != null) student.setName(newName);
+        if (newEmail != null) student.setEmail(newEmail);
+
+        return student;
     }
 
     @Override

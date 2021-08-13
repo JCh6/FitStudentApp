@@ -2,9 +2,9 @@ package com.fitstudentapp.server.ui.controller;
 
 import com.fitstudentapp.server.services.studentservice.StudentService;
 import com.fitstudentapp.server.ui.model.request.StudentRequestModel;
+import com.fitstudentapp.server.ui.model.request.StudentUpdateRequestModel;
 import com.fitstudentapp.server.ui.model.response.Student;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +43,12 @@ public class StudentController {
     }
 
     @PutMapping(path = "/{studentId}", consumes = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<Student> updateStudent() {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Student> updateStudent(
+            @PathVariable String studentId,
+            @Valid @RequestBody StudentUpdateRequestModel studentDetails
+    ) {
+        Student updatedStudent = studentService.updateStudent(studentId, studentDetails);
+        return new ResponseEntity<>(updatedStudent, OK);
     }
 
     @DeleteMapping(path = "/{studentId}")
